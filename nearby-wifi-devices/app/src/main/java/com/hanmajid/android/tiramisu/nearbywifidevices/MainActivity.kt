@@ -61,10 +61,12 @@ class MainActivity : AppCompatActivity() {
                 ) == PackageManager.PERMISSION_GRANTED -> {
                     startLocalOnlyHotspot()
                 }
+                // 之前被拒绝过一次,这次需要给给用户解释申请权限的原因
                 shouldShowRequestPermissionRationale(permission) -> {
                     MaterialAlertDialogBuilder(this)
                         .setMessage("This app would not work without Nearby Wi-Fi Devices permission. Do you want to give this app the permission?")
                         .setPositiveButton("Yes") { _, _ ->
+                            // Activity Result API
                             requestPermissionLauncher.launch(permission)
                         }.setNegativeButton("No Thanks") { _, _ ->
 

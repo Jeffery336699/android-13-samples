@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                     showSnackBar("SUCCESS: $uriPaths")
                 }
             }
-
+        // Android 13系统自带图片选择器，不需要申明权限（内部图库那些权限都ok了），你这边只是返回选择的数据
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             // Setup pick 1 image/video
             findViewById<Button>(R.id.button_pick_photo_video).setOnClickListener {

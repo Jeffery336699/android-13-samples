@@ -14,6 +14,11 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import kotlin.system.exitProcess
 
+/**
+ * 1、注意撤销完授予的运行时权限时,需要重启才能生效
+ *
+ * 2、就算之前没有授权运行时权限,直接调用撤销相应权限也不会异常
+ */
 class MainActivity : AppCompatActivity() {
     private var snackBar: Snackbar? = null
     private lateinit var requestPermissionsLauncher: ActivityResultLauncher<Array<String>>
@@ -61,18 +66,22 @@ class MainActivity : AppCompatActivity() {
         buttonRevokeCameraPermission.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 revokeSelfPermissionOnKill(Manifest.permission.CAMERA)
+                println("CAMERA : ${isPermissionGranted(Manifest.permission.CAMERA)}")
                 showRevokeSuccessSnackBar()
             }
         }
         buttonRevokeCallPermission.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 revokeSelfPermissionOnKill(Manifest.permission.CALL_PHONE)
+                println("CALL_PHONE : ${isPermissionGranted(Manifest.permission.CALL_PHONE)}")
                 showRevokeSuccessSnackBar()
             }
         }
         buttonRevokeAllPermissions.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                // TODO: 注意这里Permission有个s(撤销多个权限时)
                 revokeSelfPermissionsOnKill(requiredPermissions.toList())
+                println("CALL_PHONE AND  CAMERA: ${isPermissionGranted(Manifest.permission.CALL_PHONE) and isPermissionGranted(Manifest.permission.CAMERA)}")
                 showRevokeSuccessSnackBar()
             }
         }

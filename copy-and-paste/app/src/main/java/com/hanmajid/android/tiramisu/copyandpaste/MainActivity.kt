@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        clipboardManager.setPrimaryClip(clipData)
+        clipboardManager.primaryClip = clipData
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             Snackbar.make(
                 findViewById<View>(android.R.id.content).rootView,
